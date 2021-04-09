@@ -1,6 +1,12 @@
 # alienautomation
 A Python script made to automate the tidious job of mining on AlienWorlds
 
+This script:
+- Automatically opens the browser
+- Automatically logs in
+- Automatically mines and claims
+
+
 ---
 ##### AlienAutomation was made for educational purposes only, the developers and contributors do not take any responsibility for your WAX.io, AlienWorlds and, or Reddit accounts.
 ---

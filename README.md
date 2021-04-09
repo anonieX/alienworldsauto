@@ -22,5 +22,7 @@ A Python script made to automate the tidious job of mining on AlienWorlds
 4. Edit the `reddit_username` and `reddit_password` values in main.py to match your Reddit login
 5. Create a wax account with your Reddit here: https://all-access.wax.io/
 6. Create your AlienWorlds account here: https://play.alienworlds.io/
-7. Start the script!
-8. Have fun!
+7. Install brave browser in the default directory
+8. Install ChromeDriver in your C:/Driver/chromedriver.exe directory from here: https://chromedriver.chromium.org/downloads
+9. Start the script!
+10. Have fun!

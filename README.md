@@ -5,6 +5,7 @@ This script:
 - Automatically opens the browser
 - Automatically logs in
 - Automatically mines and claims
+- Prevents being detected as a bot
 
 
 ---

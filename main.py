@@ -24,9 +24,17 @@ main_page = driver.current_window_handle
 ###
 reddit_username = ""
 reddit_password = ""
+sleeptimeMin = 30 # Minimum time the bot will sleep between actions to look more human
+sleeptimeMax = 150 # Maximum time the bot will sleep between actions to look more human
 ###
 
+
 driver.get("https://wallet.wax.io/")
+
+def sleeptime():
+    x = random.randint(sleeptimeMin, sleeptimeMax)
+    print(f"Going sleep: {x}s")
+    return x
 
 def preload(): # logs into wax.io
     while True:
@@ -65,7 +73,6 @@ def login(): # login into alienworlds
     found = False
     while not found:
         for e in driver.get_log('browser'):
-            print(e, found)
             if "Input Manager initialize...\\n" in e["message"]:
                 found = True
                 break
@@ -81,7 +88,6 @@ def miner(force = False): # activates miner menu button
         if force == True:
             break
         for e in driver.get_log('browser'):
-            print(e, found)
             if "successfully downloaded and stored in the indexedDB cache" in e["message"]:
                 found = True
                 break
@@ -96,7 +102,6 @@ def mine(force = False): # starts mining
         if force == True:
             break
         for e in driver.get_log('browser'):
-            print(e, found)
             if "successfully downloaded and stored in the indexedDB cache" in e["message"]:
                 found = True
                 break
@@ -109,7 +114,6 @@ def get(force = False): # claims reward
     found = False
     while not found:
         for e in driver.get_log('browser'):
-            print(e, found)
             if "end doWork" in e["message"]:
                 found = True
                 break
@@ -124,7 +128,6 @@ def end(force = False): # resets
         if force == True:
             break
         for e in driver.get_log('browser'):
-            print(e, found)
             if "Loaded Mining" in e["message"]:
                 found = True
                 print(found)
@@ -159,7 +162,9 @@ end()
 wait()
 
 while True:
+    time.sleep(sleeptime())
     mine(True)
+    time.sleep(sleeptime())
     get(True)
     end(True)
     wait()

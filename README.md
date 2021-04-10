@@ -33,6 +33,8 @@ This script:
 9. Start the script!
 10. Have fun!
 
+
+#### *Any problems? [Submit an issue](https://github.com/anonieX/alienworldsauto/issues/new), or email me!*
 ---
 
 ## Donations

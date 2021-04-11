@@ -3,6 +3,7 @@
 ![](https://img.shields.io/github/last-commit/anoniex/alienworldsauto?style=flat-square)
 ![](https://img.shields.io/github/release-date/anoniex/alienworldsauto?style=flat-square)
 ![](https://img.shields.io/badge/OpenSource-%E2%9D%A4-red?style=flat-square)
+
 ---
 
 A Python script made to automate the tidious job of mining on AlienWorlds

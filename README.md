@@ -30,6 +30,8 @@ This script:
 3. Use the command `pip install selenium` to install the lib. If this does not work use `py -3.7 -m pip install selenium`
 ### Config edits
 5. Edit the `reddit_username` and `reddit_password` values in main.py to match your Reddit login
+#### Optional: Download and set up a VPN
+* Read [VPN.md](https://github.com/anonieX/alienworldsauto/blob/main/VPN.md) for more info
 ### Account creation
 7. Create a wax account with your Reddit here: https://all-access.wax.io/
 8. Create your AlienWorlds account here: https://play.alienworlds.io/

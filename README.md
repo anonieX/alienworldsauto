@@ -38,7 +38,8 @@ This script:
 11. Install ChromeDriver in your C:/Driver/chromedriver.exe directory from here: https://chromedriver.chromium.org/downloads
 ### Finishing!
 13. Start the script by running main.py!
-14. Have fun!
+14. Do not resize the window.
+15. Have fun!
 
 
 #### *Any problems? [Submit an issue](https://github.com/anonieX/alienworldsauto/issues/new), or email me!*

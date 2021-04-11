@@ -17,8 +17,11 @@ d['goog:loggingPrefs'] = { 'browser':'ALL' }
 option = webdriver.ChromeOptions()
 option.add_argument('log-level=3')
 option.binary_location = brave_path
+option.add_argument('window-size=929, 1012')
 
 driver = webdriver.Chrome(executable_path=driver_path, chrome_options=option, desired_capabilities=d)
+driver.set_window_size(945, 1140)
+
 main_page = driver.current_window_handle
 
 ###

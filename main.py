@@ -16,12 +16,10 @@ d['goog:loggingPrefs'] = { 'browser':'ALL' }
 
 option = webdriver.ChromeOptions()
 option.add_argument('log-level=3')
-option.binary_location = brave_path
 option.add_argument('window-size=929, 1012')
+option.binary_location = brave_path
 
 driver = webdriver.Chrome(executable_path=driver_path, chrome_options=option, desired_capabilities=d)
-driver.set_window_size(945, 1140)
-
 main_page = driver.current_window_handle
 
 ###
@@ -39,22 +37,29 @@ def sleeptime():
     print(f"Going sleep: {x}s")
     return x
 
+size = 0,0
+
 def preload(): # logs into wax.io
     while True:
         try:
             driver.find_element_by_xpath('/html/body/div[1]/div/div/div[2]/div[4]/div/div[9]/button').click()
+            driver.find_element_by_xpath('/html/body/div[1]/div/div/div[1]/div[1]/div/div[3]/div[1]/div[9]/button').click()
+            driver.find_element_by_xpath('/html/body/div[1]/div/div/div[2]/div[4]/div[1]/div[9]/button').click()
         except:
-            time.sleep(0.5)
+            if driver.current_url.startswith("https://www.reddit.com/"):
+                break
+            else:
+                time.sleep(0.5)
         else:
             break
-
+    print("LOG")
     while True:
         try:
             driver.find_element_by_xpath('/html/body/div/main/div[1]/div/div[2]/form/fieldset[1]/input').send_keys(reddit_username)
             driver.find_element_by_xpath('/html/body/div/main/div[1]/div/div[2]/form/fieldset[2]/input').send_keys(reddit_password)
             driver.find_element_by_xpath('/html/body/div/main/div[1]/div/div[2]/form/fieldset[5]/button').click()
         except:
-            time.sleep(0.5)
+            time.sleep(0.1)
         else:
             break
 
@@ -71,7 +76,12 @@ def preload(): # logs into wax.io
         else:
             break
     driver.get("https://play.alienworlds.io/")
-    
+    global size
+    size = driver.get_window_size()["width"]/0.5625, driver.get_window_size()["height"]
+    print(size)
+    driver.set_window_size(size[0], size[1])
+
+
 def login(): # login into alienworlds
     found = False
     while not found:
@@ -79,10 +89,15 @@ def login(): # login into alienworlds
             if "Input Manager initialize...\\n" in e["message"]:
                 found = True
                 break
-           
-    ActionChains(driver).move_by_offset(500, 600).click().perform()
+    print(size)
+    print(driver.get_window_size())
+    driver.set_window_size(size[0], size[1])
+    x = driver.get_window_size()["width"]/2
+    y = driver.get_window_size()["height"]*0.621761
+    print(x, y)
+    ActionChains(driver).move_by_offset(x, y).click().perform()
     time.sleep(0.2)
-    ActionChains(driver).move_by_offset(-500, -600).click().perform()
+    ActionChains(driver).move_by_offset(-x, -y).click().perform()
     
     
 def miner(force = False): # activates miner menu button
@@ -94,10 +109,13 @@ def miner(force = False): # activates miner menu button
             if "successfully downloaded and stored in the indexedDB cache" in e["message"]:
                 found = True
                 break
-            
-    ActionChains(driver).move_by_offset(700, 400).click().perform()
+    driver.set_window_size(size[0], size[1])
+    x = driver.get_window_size()["width"]/1.32714285714
+    y = driver.get_window_size()["height"]/3.4
+    print(x, y)
+    ActionChains(driver).move_by_offset(x, y).click().perform()
     time.sleep(0.2)
-    ActionChains(driver).move_by_offset(-700, -400).click().perform()
+    ActionChains(driver).move_by_offset(-x, -y).click().perform()
 
 def mine(force = False): # starts mining
     found = False
@@ -108,10 +126,13 @@ def mine(force = False): # starts mining
             if "successfully downloaded and stored in the indexedDB cache" in e["message"]:
                 found = True
                 break
-
-    ActionChains(driver).move_by_offset(460, 690).click().perform()
+    driver.set_window_size(size[0], size[1])
+    x = driver.get_window_size()["width"]/2
+    y = driver.get_window_size()["height"]/1.35
+    print(x, y)
+    ActionChains(driver).move_by_offset(x, y).click().perform()
     time.sleep(0.2)
-    ActionChains(driver).move_by_offset(-460, -690).click().perform()
+    ActionChains(driver).move_by_offset(-x, -y).click().perform()
     
 def get(force = False): # claims reward
     found = False
@@ -121,9 +142,13 @@ def get(force = False): # claims reward
                 found = True
                 break
 
-    ActionChains(driver).move_by_offset(460, 530).click().perform()
+    driver.set_window_size(size[0], size[1])
+    x = driver.get_window_size()["width"]/2
+    y = driver.get_window_size()["height"]/1.9
+    print(x, y)
+    ActionChains(driver).move_by_offset(x, y).click().perform()
     time.sleep(0.2)
-    ActionChains(driver).move_by_offset(-460, -530).click().perform()
+    ActionChains(driver).move_by_offset(-x, -y).click().perform()
     
 def end(force = False): # resets
     found = False
@@ -137,9 +162,13 @@ def end(force = False): # resets
                 break
 
     time.sleep(10)
-    ActionChains(driver).move_by_offset(250, 650).click().perform()
+    driver.set_window_size(size[0], size[1])
+    x = driver.get_window_size()["width"]/4.05
+    y = driver.get_window_size()["height"]/1.52025316456
+    print(x, y)
+    ActionChains(driver).move_by_offset(x, y).click().perform()
     time.sleep(0.2)
-    ActionChains(driver).move_by_offset(-250, -650).click().perform()
+    ActionChains(driver).move_by_offset(-x, -y).click().perform()
     
 def wait(): # finds sleep time and waits
     s = ""

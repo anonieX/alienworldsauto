@@ -26,9 +26,11 @@ main_page = driver.current_window_handle
 reddit_username = ""
 reddit_password = ""
 sleeptimeMin = 30 # Minimum time the bot will sleep between actions to look more human
-sleeptimeMax = 150 # Maximum time the bot will sleep between actions to look more human
+sleeptimeMax = 90 # Maximum time the bot will sleep between actions to look more human
 ###
-
+debugResolution = True
+debugBarsAdd = 0
+###
 
 driver.get("https://wallet.wax.io/")
 
@@ -52,7 +54,6 @@ def preload(): # logs into wax.io
                 time.sleep(0.5)
         else:
             break
-    print("LOG")
     while True:
         try:
             driver.find_element_by_xpath('/html/body/div/main/div[1]/div/div[2]/form/fieldset[1]/input').send_keys(reddit_username)
@@ -77,7 +78,10 @@ def preload(): # logs into wax.io
             break
     driver.get("https://play.alienworlds.io/")
     global size
-    size = driver.get_window_size()["width"]/0.5625, driver.get_window_size()["height"]
+    if debugResolution == False:
+        size = driver.get_window_size()["width"]/0.5625, driver.get_window_size()["height"]
+    if debugResolution == True:
+        size = 500, 500
     print(size)
     driver.set_window_size(size[0], size[1])
 
@@ -89,17 +93,26 @@ def login(): # login into alienworlds
             if "Input Manager initialize...\\n" in e["message"]:
                 found = True
                 break
-    print(size)
-    print(driver.get_window_size())
-    driver.set_window_size(size[0], size[1])
-    x = driver.get_window_size()["width"]/2
-    y = driver.get_window_size()["height"]*0.621761
-    print(x, y)
-    ActionChains(driver).move_by_offset(x, y).click().perform()
-    time.sleep(0.2)
-    ActionChains(driver).move_by_offset(-x, -y).click().perform()
-    
-    
+    global size
+    while True:
+        print(size)
+        print(driver.get_window_size())
+        _debugLog = driver.get_log('browser')
+        driver.set_window_size(size[0], size[1])
+        x = driver.get_window_size()["width"]/2
+        y = driver.get_window_size()["height"]*0.621761
+        if debugResolution == True:
+            x, y = 250, 233
+        print(x, y)
+        ActionChains(driver).move_by_offset(x, y).click().perform()
+        time.sleep(0.2)
+        ActionChains(driver).move_by_offset(-x, -y).click().perform()
+        time.sleep(5)
+        if driver.get_log('browser') == _debugLog:
+            size = size[0], size[1]+25
+        else:
+            break
+
 def miner(force = False): # activates miner menu button
     found = False
     while not found:
@@ -112,6 +125,8 @@ def miner(force = False): # activates miner menu button
     driver.set_window_size(size[0], size[1])
     x = driver.get_window_size()["width"]/1.32714285714
     y = driver.get_window_size()["height"]/3.4
+    if debugResolution == True:
+        x, y = 405, 105
     print(x, y)
     ActionChains(driver).move_by_offset(x, y).click().perform()
     time.sleep(0.2)
@@ -129,6 +144,8 @@ def mine(force = False): # starts mining
     driver.set_window_size(size[0], size[1])
     x = driver.get_window_size()["width"]/2
     y = driver.get_window_size()["height"]/1.35
+    if debugResolution == True:
+        x, y = 250, 275
     print(x, y)
     ActionChains(driver).move_by_offset(x, y).click().perform()
     time.sleep(0.2)
@@ -145,6 +162,8 @@ def get(force = False): # claims reward
     driver.set_window_size(size[0], size[1])
     x = driver.get_window_size()["width"]/2
     y = driver.get_window_size()["height"]/1.9
+    if debugResolution == True:
+        x, y = 245, 185
     print(x, y)
     ActionChains(driver).move_by_offset(x, y).click().perform()
     time.sleep(0.2)
@@ -165,6 +184,8 @@ def end(force = False): # resets
     driver.set_window_size(size[0], size[1])
     x = driver.get_window_size()["width"]/4.05
     y = driver.get_window_size()["height"]/1.52025316456
+    if debugResolution == True:
+        x, y = 140, 250
     print(x, y)
     ActionChains(driver).move_by_offset(x, y).click().perform()
     time.sleep(0.2)
@@ -183,7 +204,6 @@ def wait(): # finds sleep time and waits
     print("Sleeping")
     time.sleep(int(s[s.find("mine ")+5:s.find("\"'")])/1000)
     print("SleepStop")
-    
 
 preload()
 login()
@@ -196,7 +216,7 @@ wait()
 while True:
     time.sleep(sleeptime())
     mine(True)
-    time.sleep(sleeptime())
+    time.sleep(sleeptime()/4)
     get(True)
     end(True)
     wait()

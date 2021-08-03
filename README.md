@@ -6,7 +6,7 @@
 
 ---
 
-A Python script made to automate the tidious job of mining on AlienWorlds
+A Python script made to automate the tedious job of mining on AlienWorlds
 
 This script:
 - Automatically opens the browser
